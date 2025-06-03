@@ -17,7 +17,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void number_pressed();
+    void operator_pressed();
+    void equals_pressed();
+    void clear_pressed();
+
 private:
     Ui::MainWindow *ui;
+    double firstOperand;
+    QString pendingOperator;
+    bool waitingForSecondOperand;
 };
 #endif // MAINWINDOW_H
