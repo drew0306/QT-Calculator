@@ -4,7 +4,7 @@ A basic calculator built using Qt and C++. Supports addition, subtraction, multi
 
 ## Screenshot
 
-![A screenshot of the Qt Calculator GUI](images/calculator_screenshot.png)
+![A screenshot of the Qt Calculator GUI](images/Calculator_Screenshot.png)
 
 
 ## Features
