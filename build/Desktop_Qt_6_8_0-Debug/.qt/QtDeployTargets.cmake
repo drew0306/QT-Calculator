@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_Calculator_FILE /home/drew/projects/Calculator/build/Desktop_Qt_6_8_0-Debug/Calculator)
+set(__QT_DEPLOY_TARGET_Calculator_TYPE EXECUTABLE)

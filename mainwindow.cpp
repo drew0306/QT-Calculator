@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include <cmath>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,7 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     QList<QPushButton*> numberButtons =
     {
-        ui->pushButton_2, ui->pushButton_7, ui->pushButton_18, ui->pushButton_19, ui->pushButton_8, ui->pushButton_14, ui->pushButton_15, ui->pushButton_9, ui->pushButton_10, ui->pushButton_11
+        ui->pushButton_2, ui->pushButton_7, ui->pushButton_18, ui->pushButton_19, ui->pushButton_8, ui->pushButton_14,
+        ui->pushButton_15, ui->pushButton_9, ui->pushButton_10, ui->pushButton_11, ui->pushButton_decimal
     };
 
     for (auto button : numberButtons)
@@ -22,15 +24,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_multi, &QPushButton::clicked, this, &MainWindow::operator_pressed);
     connect(ui->pushButton_div, &QPushButton::clicked, this, &MainWindow::operator_pressed);
     connect(ui->pushButton_modulo, &QPushButton::clicked, this, &MainWindow::operator_pressed);
-    connect(ui->pushButton_decimal, &QPushButton::clicked, this, &MainWindow::operator_pressed);
     connect(ui->pushButton_sqrt, &QPushButton::clicked, this, &MainWindow::operator_pressed);
     connect(ui->pushButton_clear, &QPushButton::clicked, this, &MainWindow::clear_pressed);
     connect(ui->pushButton_squared, &QPushButton::clicked, this, &MainWindow::operator_pressed);
     connect(ui->pushButton_eq, &QPushButton::clicked, this, &MainWindow::equals_pressed);
     connect(ui->pushButton_percent, &QPushButton::clicked, this, &MainWindow::operator_pressed);
-    connect(ui->pushButton_pi, &QPushButton::clicked, this, &MainWindow::operator_pressed);
-    connect(ui->pushButton_lftPar, &QPushButton::clicked, this, &MainWindow::operator_pressed);
-    connect(ui->pushButton_rghtPar, &QPushButton::clicked, this, &MainWindow::operator_pressed);
 }
 
 MainWindow::~MainWindow()
@@ -66,10 +64,20 @@ void MainWindow::equals_pressed()
 
     if (pendingOperator == "+") result = firstOperand + secondOperand;
     else if (pendingOperator == "-") result = firstOperand - secondOperand;
-    else if (pendingOperator == "*") result = firstOperand * secondOperand;
+    else if (pendingOperator == "X") result = firstOperand * secondOperand;
     else if (pendingOperator == "/") {
         if (secondOperand != 0)
             result = firstOperand / secondOperand;
+        else {
+            ui->display->setText("Error");
+            return;
+        }
+    }
+    else if (pendingOperator == "X²") result = firstOperand * firstOperand;
+    else if (pendingOperator == "SqRT") result = sqrt(firstOperand);
+    else if (pendingOperator == "Mod") {
+        if (secondOperand != 0)
+            result = std::fmod(firstOperand, secondOperand);
         else {
             ui->display->setText("Error");
             return;
